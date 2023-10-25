@@ -10,6 +10,7 @@ namespace EntityLayer.Concrete
     {
 
         public int NewsLetterID { get; set; }
+       
         public string Mail { get; set; }
     }
 }
