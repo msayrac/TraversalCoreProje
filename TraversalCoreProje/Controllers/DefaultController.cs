@@ -2,7 +2,7 @@
 
 namespace TraversalCoreProje.Controllers
 {
-    public class DefaultController1 : Controller
+    public class DefaultController : Controller
     {
         public IActionResult Index()
         {
