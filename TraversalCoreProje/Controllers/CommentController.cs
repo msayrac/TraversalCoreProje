@@ -10,8 +10,9 @@ namespace TraversalCoreProje.Controllers
 		CommentManager commentManager = new CommentManager(new EfCommentDal());
 
 		[HttpGet]
-		public PartialViewResult AddComment()
+		public PartialViewResult AddComment()  //  int id int id yoktu
 		{
+			//ViewBag.Id = id; // yoktu
 			return PartialView();
 		}
 
@@ -20,7 +21,6 @@ namespace TraversalCoreProje.Controllers
 		{
 			p.CommentDate = Convert.ToDateTime(DateTime.Now.ToShortDateString());
 			p.CommentState = true;
-			p.DestinationID = 3;
 			commentManager.TAdd(p);
 
 			return RedirectToAction("Index","Destination");
