@@ -1,12 +1,37 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using EntityLayer.Concrete;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using TraversalCoreProje.Areas.Member.Models;
 
 namespace TraversalCoreProje.Areas.Member.Controllers
 {
+    [Area("Member")]
+    [Route("Member/[Controller]/[Action]")]
 	public class ProfileController : Controller
 	{
-		public IActionResult Index()
+
+        private readonly UserManager<AppUser> _userManager;
+
+        public ProfileController(UserManager<AppUser> userManager)
+        {
+            _userManager = userManager;
+        }
+
+        [HttpGet]
+        public async Task <ActionResult> Index()
 		{
-			return View();
+            var values = await _userManager.FindByNameAsync(User.Identity.Name);
+            UserEditViewModel userEditViewModel = new UserEditViewModel();
+            userEditViewModel.name = values.Name;
+            userEditViewModel.surname = values.Surname;
+            userEditViewModel.phonenumber = values.PhoneNumber;
+            userEditViewModel.mail = values.Email;
+
+
+			return View(userEditViewModel);
+
+
+
 		}
 	}
 }
