@@ -18,7 +18,12 @@ namespace BusinessLayer.Concrete
             _reservationDal = reservationDal;
         }
 
-        public void TAdd(Reservation t)
+		public List<Reservation> GetListApprovalReservation(int id)
+		{
+			return _reservationDal.GetListByFilter(x => x.AppUserId == id);
+		}
+
+		public void TAdd(Reservation t)
         {
             _reservationDal.Insert(t);
         }
@@ -31,12 +36,14 @@ namespace BusinessLayer.Concrete
         public Reservation TGetByID(int id)
         {
             throw new NotImplementedException();
-        }
+			
+		}
 
         public List<Reservation> TGetList()
         {
-            throw new NotImplementedException();
-        }
+			throw new NotImplementedException();
+
+		}
 
         public void TUpdate(Reservation t)
         {
