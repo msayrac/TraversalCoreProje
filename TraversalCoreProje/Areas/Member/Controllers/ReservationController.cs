@@ -17,25 +17,31 @@ namespace TraversalCoreProje.Areas.Member.Controllers
 
         private readonly UserManager<AppUser> _userManager;
 
-		public ReservationController(UserManager<AppUser> userManager)
-		{
-			_userManager = userManager;
-		}
-
-		public IActionResult MyCurrentReservation()
+        public ReservationController(UserManager<AppUser> userManager)
         {
-            return View();
+            _userManager = userManager;
         }
 
-        public IActionResult MyOldReservation()
+        public async Task<IActionResult> MyCurrentReservation()
         {
-            return View();
+            var values = await _userManager.FindByNameAsync(User.Identity.Name);
+            var valuesList = reservationManager.GetListWithoutReservationByAccepted(values.Id);
+
+            return View(valuesList);
+        }
+
+        public async Task<IActionResult> MyOldReservation()
+        {
+            var values = await _userManager.FindByNameAsync(User.Identity.Name);
+            var valuesList = reservationManager.GetListWithoutReservationByPrevious(values.Id);
+
+            return View(valuesList);
         }
 
         public async Task<IActionResult> MyApprovalReservation()
         {
             var values = await _userManager.FindByNameAsync(User.Identity.Name);
-           var valuesList = reservationManager.GetListWithReservationByWaitApproval(values.Id);
+            var valuesList = reservationManager.GetListWithReservationByWaitApproval(values.Id);
 
             return View(valuesList);
         }
@@ -58,14 +64,14 @@ namespace TraversalCoreProje.Areas.Member.Controllers
         [HttpPost]
         public IActionResult NewReservation(Reservation p)
         {
-            p.AppUserId= 2;
+            p.AppUserId = 2;
             p.Status = "Onay Bekliyor";
             reservationManager.TAdd(p);
 
-			
 
 
-			return RedirectToAction("MyCurrentReservation");
+
+            return RedirectToAction("MyCurrentReservation");
         }
     }
 }

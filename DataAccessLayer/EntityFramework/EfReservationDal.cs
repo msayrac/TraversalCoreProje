@@ -15,12 +15,18 @@ namespace DataAccessLayer.EntityFramework
     {
         public List<Reservation> GetListWithoutReservationByAccepted(int id)
         {
-            throw new NotImplementedException();
+            using (var context = new Context())
+            {
+                return context.Reservations.Include(x => x.Destination).Where(x => x.Status == "Onaylandı" && x.AppUserId == id).ToList();
+            }
         }
 
         public List<Reservation> GetListWithoutReservationByPrevious(int id)
         {
-            throw new NotImplementedException();
+            using (var context = new Context())
+            {
+                return context.Reservations.Include(x => x.Destination).Where(x => x.Status == "Geçmiş Rezervasyon" && x.AppUserId == id).ToList();
+            }
         }
 
         public List<Reservation> GetListWithReservationByWaitApproval(int id)
