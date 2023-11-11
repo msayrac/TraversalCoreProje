@@ -24,9 +24,9 @@ namespace TraversalCoreProje.Areas.Admin.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult AddDestination(Destination destinaiton)
+		public IActionResult AddDestination(Destination destination)
 		{
-			destinationManager.TAdd(destinaiton);
+			destinationManager.TAdd(destination);
 			return RedirectToAction("Index");
 		}
 
