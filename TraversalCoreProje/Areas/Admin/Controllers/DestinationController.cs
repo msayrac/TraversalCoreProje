@@ -1,62 +1,69 @@
-﻿using BusinessLayer.Concrete;
+﻿using BusinessLayer.Abstract;
+using BusinessLayer.Concrete;
+using DataAccessLayer.Abstract;
 using DataAccessLayer.EntityFramework;
 using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Mvc;
 
 namespace TraversalCoreProje.Areas.Admin.Controllers
 {
-	[Area("Admin")]
-	public class DestinationController : Controller
-	{
-		DestinationManager destinationManager = new DestinationManager(new EfDestinationDal());
+    [Area("Admin")]
+    public class DestinationController : Controller
+    {
+        private readonly IDestinationService _destinationService;
 
-		public IActionResult Index()
-		{
-			var values = destinationManager.TGetList();
-			return View(values);
-		}
+        public DestinationController(IDestinationService destinationService)
+        {
+            _destinationService = destinationService;
+        }
 
-		[HttpGet]
-		public IActionResult AddDestination()
-		{
+        public IActionResult Index()
+        {
+            var values = _destinationService.TGetList();
+            return View(values);
+        }
 
-			return View();
-		}
+        [HttpGet]
+        public IActionResult AddDestination()
+        {
 
-		[HttpPost]
-		public IActionResult AddDestination(Destination destination)
-		{
-			destinationManager.TAdd(destination);
-			return RedirectToAction("Index");
-		}
+            return View();
+        }
 
-		public IActionResult DeleteDestination(int id)
-		{
+        [HttpPost]
+        public IActionResult AddDestination(Destination destination)
+        {
+            _destinationService.TAdd(destination);
+            return RedirectToAction("Index");
+        }
 
-			var values = destinationManager.TGetByID(id);
-			destinationManager.TDelete(values);
-			return RedirectToAction("Index");
+        public IActionResult DeleteDestination(int id)
+        {
 
-		}
+            var values = _destinationService.TGetByID(id);
+            _destinationService.TDelete(values);
+            return RedirectToAction("Index");
 
-		[HttpGet]
-		public IActionResult UpdateDestination(int id)
-		{
-			var values = destinationManager.TGetByID(id);
+        }
 
-			return View(values);
+        [HttpGet]
+        public IActionResult UpdateDestination(int id)
+        {
+            var values = _destinationService.TGetByID(id);
 
-		}
+            return View(values);
 
-		[HttpPost]
-		public IActionResult UpdateDestination(Destination destination)
-		{
-			destinationManager.TUpdate(destination);
+        }
 
-			return RedirectToAction("Index");
+        [HttpPost]
+        public IActionResult UpdateDestination(Destination destination)
+        {
+            _destinationService.TUpdate(destination);
 
-		}
+            return RedirectToAction("Index");
+
+        }
 
 
-	}
+    }
 }
