@@ -3,6 +3,7 @@ using BusinessLayer.Concrete;
 using DataAccessLayer.Abstract;
 using DataAccessLayer.EntityFramework;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +27,11 @@ namespace BusinessLayer.Container
 
 			services.AddScoped<IReservationService, ReservationManager>();
 			services.AddScoped<IReservationDal, EfReservationDal>();
+
+			services.AddScoped<IGuideService, GuideManager>();
+			services.AddScoped<IGuideDal, EfGuideDal>();
+
+
 		}
 
 		
