@@ -4,6 +4,7 @@ using DTOLayer.DTOs.AppUserDTOs;
 using DTOLayer.DTOs.CityDTOs;
 using EntityLayer.Concrete;
 
+
 namespace TraversalCoreProje.Mapping.AutoMapperProfile
 {
     public class MapProfile : Profile
@@ -18,7 +19,13 @@ namespace TraversalCoreProje.Mapping.AutoMapperProfile
 
             CreateMap<AppUserLoginDTO, AppUser>();
             CreateMap<AppUser, AppUserLoginDTO>();
-        }
+
+            CreateMap<AnnouncementListDTO, Announcement>();
+            CreateMap<Announcement, AnnouncementListDTO>();
+
+		
+
+		}
 
     }
 }
