@@ -4,6 +4,7 @@ using EntityLayer.Concrete;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using TraversalCoreProje.CQRS.Handlers.DestinationHandlers;
 using TraversalCoreProje.Models;
 
 
@@ -26,6 +27,8 @@ builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.CustomerValidator();
 
 builder.Services.AddControllersWithViews().AddFluentValidation();
+
+builder.Services.AddScoped<GetAllDestinationQueryHandler>();
 
 
 builder.Services.AddLogging(x =>
