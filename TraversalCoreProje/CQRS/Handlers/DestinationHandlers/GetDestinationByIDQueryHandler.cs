@@ -14,14 +14,15 @@ namespace TraversalCoreProje.CQRS.Handlers.DestinationHandlers
             _context = context;
         }
 
-        public GetDestinaitonByIDQueryResult Handle(GetDestinationByIDQuery query)
+        public GetDestinationByIDQueryResult Handle(GetDestinationByIDQuery query)
         {
             var values = _context.Destinations.Find(query.id);
-            return new GetDestinaitonByIDQueryResult
+            return new GetDestinationByIDQueryResult
             {
                 DestinationID = values.DestinationID,
                 City = values.City,
-                Daynight = values.DayNight
+                Daynight = values.DayNight,
+                Price = values.Price,
 
             };
 
