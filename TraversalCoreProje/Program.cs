@@ -1,9 +1,12 @@
 using BusinessLayer.Container;
 using DataAccessLayer.Concrete;
+using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
 using EntityLayer.Concrete;
 using FluentValidation.AspNetCore;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using System.Reflection;
 using TraversalCoreProje.CQRS.Commands.DestinationCommands;
 using TraversalCoreProje.CQRS.Handlers.DestinationHandlers;
 using TraversalCoreProje.Models;
@@ -34,6 +37,11 @@ builder.Services.AddScoped<GetDestinationByIDQueryHandler>();
 builder.Services.AddScoped<CreateDestinationCommandHandler>();
 builder.Services.AddScoped<RemoveDestinationCommandHandler>();
 builder.Services.AddScoped<UpdateDestinationCommandHandler>();
+
+//builder.Services.AddMediatR(typeof(Program).Assembly);
+//builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
+
 
 
 builder.Services.AddLogging(x =>
