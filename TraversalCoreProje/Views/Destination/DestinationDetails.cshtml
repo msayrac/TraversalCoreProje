@@ -105,7 +105,7 @@
 					<!--//author-card-->
 					@await Component.InvokeAsync("_GuideDetails")
 					<!--//author-card-->
-					@await Component.InvokeAsync("_CommentList")
+					@await Component.InvokeAsync("_CommentList", new { id = ViewBag.i })
 
 					@await Html.PartialAsync("~/Views/Comment/AddComment.cshtml")
 

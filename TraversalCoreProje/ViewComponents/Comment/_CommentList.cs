@@ -1,4 +1,5 @@
 ﻿using BusinessLayer.Concrete;
+using DataAccessLayer.Concrete;
 using DataAccessLayer.EntityFramework;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Identity.Client;
@@ -9,9 +10,11 @@ namespace TraversalCoreProje.ViewComponents.Comment
 	{
 
 		CommentManager commentManager = new CommentManager(new EfCommentDal());
+		Context context = new Context();
 		public IViewComponentResult Invoke(int id)
 		{
-			var values = commentManager.TGetByID(id);
+			ViewBag.commentCount = context.Comments.Where(x=>x.DestinationID == id).Count();
+			var values = commentManager.TGetListCommentWithDestinationAndUser(id);
 			
 			return View(values);
 		}

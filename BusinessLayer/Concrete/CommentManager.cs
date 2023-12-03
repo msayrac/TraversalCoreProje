@@ -60,6 +60,9 @@ namespace BusinessLayer.Concrete
             throw new NotImplementedException();
         }
 
-		
-    }
+		public List<Comment> TGetListCommentWithDestinationAndUser(int id)
+		{
+			return _commentDal.GetListCommentWithDestinationAndUser(id);
+		}
+	}
 }
