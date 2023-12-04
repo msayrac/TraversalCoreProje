@@ -2,6 +2,7 @@
 using DataAccessLayer.EntityFramework;
 using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace TraversalCoreProje.Controllers
@@ -12,10 +13,23 @@ namespace TraversalCoreProje.Controllers
 	{
 		CommentManager commentManager = new CommentManager(new EfCommentDal());
 
-		[HttpGet]
-		public PartialViewResult AddComment(int id)
+		private readonly UserManager<AppUser> _userManager;
+
+		public CommentController(UserManager<AppUser> userManager)
 		{
-			ViewBag.destID = id;
+			_userManager = userManager;
+		}
+
+		[HttpGet]
+		public PartialViewResult AddComment()
+		{
+			//ViewBag.destID = id;
+
+			//var value = await _userManager.FindByNameAsync(User.Identity.Name);
+			//ViewBag.userID = 5;
+			//ViewBag.a = "merhaba";
+
+
 			return PartialView();
 		}
 
