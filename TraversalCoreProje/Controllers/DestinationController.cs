@@ -11,12 +11,13 @@ namespace TraversalCoreProje.Controllers
 	public class DestinationController : Controller
 	{
 		private readonly UserManager<AppUser> _userManager;
-
+      
 		public DestinationController(UserManager<AppUser> userManager)
 		{
 			_userManager = userManager;
+            
 		}
-
+        
 
 		DestinationManager destinationManager = new DestinationManager(new EfDestinationDal());
         public IActionResult Index()
