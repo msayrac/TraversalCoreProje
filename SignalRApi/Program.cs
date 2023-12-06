@@ -1,13 +1,20 @@
 using Microsoft.EntityFrameworkCore;
 using SignalRApi.DAL;
-
+using SignalRApi.Model;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddScoped<VisitorService>();
+builder.Services.AddSignalR();
+builder.Services.AddDbContext<Context>();
+
+
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddEntityFrameworkNpgsql().AddDbContext<Context>(opt =>
 	opt.UseNpgsql(connectionString));
+
 
 
 builder.Services.AddControllers();
