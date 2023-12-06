@@ -1,14 +1,23 @@
 using Microsoft.EntityFrameworkCore;
 using SignalRApi.DAL;
+using SignalRApi.Hubs;
 using SignalRApi.Model;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddScoped<VisitorService>();
 builder.Services.AddSignalR();
-builder.Services.AddDbContext<Context>();
+//builder.Services.AddDbContext<Context>();
 
+builder.Services.AddCors(options => options.AddPolicy("CorsPolicy",
 
+	builder =>
+	{
+		builder.AllowAnyHeader()
+		.AllowAnyMethod()
+		.SetIsOriginAllowed((host) => true)
+		.AllowCredentials();
+	}));
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -31,8 +40,12 @@ if (app.Environment.IsDevelopment())
 	app.UseSwaggerUI();
 }
 
+app.UseRouting();
+app.UseCors("CorsPolicy");
 app.UseAuthorization();
+
 
 app.MapControllers();
 
 app.Run();
+app.MapHub<VisitorHub>("/VisitorHub");

@@ -11,6 +11,7 @@ namespace SignalRApi.DAL
 
 		}
 
+
 		public DbSet<Visitor> Visitors { get; set; }
 
 
