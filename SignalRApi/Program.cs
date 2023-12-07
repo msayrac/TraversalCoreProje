@@ -7,7 +7,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddScoped<VisitorService>();
 builder.Services.AddSignalR();
-//builder.Services.AddDbContext<Context>();
 
 builder.Services.AddCors(options => options.AddPolicy("CorsPolicy",
 
