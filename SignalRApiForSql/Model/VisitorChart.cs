@@ -1,4 +1,6 @@
-﻿namespace SignalRApiForSql.Model
+﻿using System.Threading.Tasks;
+
+namespace SignalRApiForSql.Model
 {
 	public class VisitorChart
 	{
