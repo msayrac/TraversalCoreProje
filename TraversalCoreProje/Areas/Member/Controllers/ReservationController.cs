@@ -67,11 +67,12 @@ namespace TraversalCoreProje.Areas.Member.Controllers
             p.AppUserId = 2;
             p.Status = "Onay Bekliyor";
             reservationManager.TAdd(p);
-
-
-
-
             return RedirectToAction("MyCurrentReservation");
+        }
+
+        public IActionResult Deneme()
+        {
+            return View();
         }
     }
 }

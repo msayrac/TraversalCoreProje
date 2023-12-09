@@ -13,9 +13,5 @@ namespace TraversalCoreProje.ViewComponents.MemberDashboard
 
 			return View(values);
 		}
-
-
-
-
 	}
 }
