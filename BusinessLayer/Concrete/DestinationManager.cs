@@ -44,6 +44,11 @@ namespace BusinessLayer.Concrete
             _destinationDal.Update(t);
         }
 
+		public List<Destination> TGetLast4Destinations()
+		{
+			return _destinationDal.GetLast4Destinations();
+		}
+
 		//public List<Destination> TGetDestinationWithGuide(int id)
 		//{
 		//	return _destinationDal.GetDestinationWithGuide(id);
