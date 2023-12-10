@@ -5,9 +5,7 @@ namespace TraversalCoreProje.ViewComponents.MemberDashboard
 {
 	public class _LastDestinations:ViewComponent
     {
-
         private readonly IDestinationService _destinationService;
-
 		public _LastDestinations(IDestinationService destinationService)
 		{
 			_destinationService = destinationService;
@@ -17,9 +15,6 @@ namespace TraversalCoreProje.ViewComponents.MemberDashboard
         {
             var values = _destinationService.TGetLast4Destinations();
             return View(values);
-
         }
-
-
     }
 }
