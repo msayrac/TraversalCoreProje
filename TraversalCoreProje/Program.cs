@@ -6,6 +6,7 @@ using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.AspNetCore.Mvc.Razor;
 using System.Reflection;
 using TraversalCoreProje.CQRS.Commands.DestinationCommands;
 using TraversalCoreProje.CQRS.Handlers.DestinationHandlers;
@@ -18,8 +19,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddDbContext<Context>();
 builder.Services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<Context>()
-    .AddErrorDescriber<CustomIdentityValidator>()
-    .AddEntityFrameworkStores<Context>();
+	.AddErrorDescriber<CustomIdentityValidator>()
+	.AddEntityFrameworkStores<Context>();
 
 builder.Services.AddHttpClient();
 
@@ -46,28 +47,30 @@ builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.G
 
 builder.Services.AddLogging(x =>
 {
-    x.ClearProviders();
-    x.SetMinimumLevel(LogLevel.Debug);
-    x.AddDebug();
+	x.ClearProviders();
+	x.SetMinimumLevel(LogLevel.Debug);
+	x.AddDebug();
 });
 
 builder.Services.AddMvc(config =>
 {
-    var policy = new AuthorizationPolicyBuilder()
-    .RequireAuthenticatedUser()
-    .Build();
-    config.Filters.Add(new AuthorizeFilter(policy));
+	var policy = new AuthorizationPolicyBuilder()
+	.RequireAuthenticatedUser()
+	.Build();
+	config.Filters.Add(new AuthorizeFilter(policy));
 });
 
-builder.Services.AddMvc();
+
+builder.Services.AddLocalization(opt => opt.ResourcesPath = "Resources");
+
+builder.Services.AddMvc().AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix).AddDataAnnotationsLocalization();
+
 
 builder.Services.ConfigureApplicationCookie(options =>
 {
-    options.LoginPath = "/Login/SignIn/";
+	options.LoginPath = "/Login/SignIn/";
 
 });
-
-
 
 
 
@@ -80,9 +83,9 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
+	app.UseExceptionHandler("/Home/Error");
+	// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+	app.UseHsts();
 
 }
 
@@ -94,24 +97,29 @@ app.UseRouting();
 
 app.UseAuthorization();
 
+var supportedCulture = new[] { "en", "fr", "es", "gr", "tr","de" };
+var localiationOptions = new RequestLocalizationOptions().SetDefaultCulture(supportedCulture[4]).AddSupportedCultures(supportedCulture).AddSupportedUICultures(supportedCulture);
+
+app.UseRequestLocalization(localiationOptions);
+
 app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+	name: "default",
+	pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.UseEndpoints(endpoints =>
 {
-    endpoints.MapControllerRoute(
-      name: "areas",
-      pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
-    );
+	endpoints.MapControllerRoute(
+	  name: "areas",
+	  pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+	);
 });
 
 app.UseEndpoints(endpoints =>
 {
-    endpoints.MapControllerRoute(
-      name: "areas",
-      pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
-    );
+	endpoints.MapControllerRoute(
+	  name: "areas",
+	  pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+	);
 });
 
 app.Run();
