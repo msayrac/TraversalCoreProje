@@ -7,8 +7,8 @@ Geliştirme yaklaşımı olarak N Katmanlı Mimari yapısını kullandım
 Projeyi Core 7.0 ile geliştirdim.
 
 ## Eğitim Serisinde Yer Verilen Teknolojiler;
-### - N Katmanlı Mimari
-#### - Generic Repository Design Pattern
+- N Katmanlı Mimari
+- Generic Repository Design Pattern
 - CQRS Design Pattern
 - MediatR
 - Unit Of Work
