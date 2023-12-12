@@ -31,6 +31,7 @@ Projeyi Core 7.0 ile geliştirdim.
 - Authentication
 - Authorization
 
+
 ![15](https://github.com/msayrac/TraversalCoreProje/assets/94198566/68d4060d-1e2f-41f5-8fde-f93bc5dc6f10)
 ![14](https://github.com/msayrac/TraversalCoreProje/assets/94198566/891518bf-e51f-438d-8f3a-7c7a2b6c41a7)
 ![13](https://github.com/msayrac/TraversalCoreProje/assets/94198566/bc628325-09f1-4971-890c-365b84831efb)
